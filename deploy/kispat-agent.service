@@ -1,0 +1,24 @@
+[Unit]
+Description=KISPAT Automation - Agent (nodo de ejecucion)
+After=network-online.target kispat-control.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=kispat-agent
+Group=kispat-agent
+WorkingDirectory=/var/lib/kispat/work
+# agent.env define HOME y XDG_RUNTIME_DIR (necesarios para Podman rootless)
+EnvironmentFile=/etc/kispat/agent.env
+ExecStartPre=/bin/sh -c 'for i in $$(seq 1 60); do [ -d "$$XDG_RUNTIME_DIR" ] && exit 0; sleep 1; done; echo "XDG_RUNTIME_DIR no disponible (linger?)" >&2; exit 1'
+ExecStart=/opt/kispat/.venv/bin/kispat-agent
+Restart=on-failure
+RestartSec=5
+MemoryMax=1G
+TasksMax=512
+# El agente termina el job en curso al recibir SIGTERM
+TimeoutStopSec=120
+# No se activa NoNewPrivileges: Podman rootless necesita newuidmap/newgidmap (setuid)
+
+[Install]
+WantedBy=multi-user.target

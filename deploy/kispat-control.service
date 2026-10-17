@@ -1,0 +1,24 @@
+[Unit]
+Description=KISPAT Automation - Control (API)
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=kispat-ctrl
+Group=kispat-ctrl
+WorkingDirectory=/opt/kispat
+EnvironmentFile=/etc/kispat/control.env
+ExecStart=/opt/kispat/.venv/bin/kispat-control
+Restart=on-failure
+RestartSec=5
+MemoryMax=512M
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/kispat
+
+[Install]
+WantedBy=multi-user.target

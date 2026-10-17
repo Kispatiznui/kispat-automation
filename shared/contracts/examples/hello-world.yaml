@@ -1,0 +1,27 @@
+apiVersion: kispat/v1
+kind: Automation
+metadata:
+  name: hello-world
+  version: 0.1.0
+  author: kispat
+  description: Imprime un saludo y termina.
+  license: MIT
+spec:
+  runtime: python3.12
+  entrypoint: main.py
+  args: []
+  env: {}
+  permissions:
+    filesystem:
+      read: []
+      write: []
+    network: false
+    secrets: []
+  limits:
+    cpu: 0.5
+    memory_mb: 128
+    pids: 32
+    timeout_s: 30
+  triggers:
+    - type: manual
+  dependencies: []
