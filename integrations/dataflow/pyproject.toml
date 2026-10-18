@@ -1,0 +1,12 @@
+[project]
+name = "kispat-dataflow"
+version = "0.1.0"
+description = "KISPAT DataFlow: motor determinista de datos, empaquetable como automatización de KISPAT Automation"
+requires-python = ">=3.12"
+# El núcleo es stdlib. openpyxl solo se usa para .xlsx y se vendoriza dentro del paquete
+# porque el contenedor corre con --network=none (no hay pip en tiempo de ejecución).
+dependencies = ["openpyxl==3.1.5"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
