@@ -127,3 +127,6 @@ AUDIT.md
 AUDIT_REPORT.md
 audits/
 docs/audit/
+# ---------- Zips de distribución ----------
+*.zip
+!tests/fixtures/*.zip
